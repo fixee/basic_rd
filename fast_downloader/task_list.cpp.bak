@@ -1,0 +1,25 @@
+#include "task_list.h"
+
+void task_list::set_task( int val )
+{
+    pthread_mutext_lock( _mutex );
+    _list.push_back( val );
+    pthread_mutext_unlock( _mutex );
+
+    pthread_cond_signal( _cond );
+}
+
+int task_list::get_task( void )
+{
+    while( _list.size() == 0 ) {
+        pthread_cond_wait( _cond, _mutex );
+    }
+    
+    int val;
+    pthread_mutext_lock( _mutex );
+    val = _list.front();
+    _list.pop_front();
+    pthread_mutext_unlock( _mutex );
+
+    return val;
+}

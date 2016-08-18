@@ -6,7 +6,7 @@ SRC=$(foreach DIR, $(SUBDIR), $(wildcard ${DIR}/*.cpp ))
 OBJ=$(patsubst %.cpp, %.o, $(SRC))
 
 BIN_TARGET: $(OBJ)
-	$(CXX) $(CXXFLAGS) $(OBJ) -o $(TARGET) $(LIB_DIR) -lcurl -lpthread -lrt
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(TARGET) $(LIB_DIR) -levhtp -lpthread -levent -levent_openssl -lssl -lcrypto -lconfig++ -lrt
 
 $(OBJ): %.o:%.cpp
 	$(CXX) $(CXXFLAGS) -c $^ -o $@
