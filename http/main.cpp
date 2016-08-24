@@ -4,6 +4,9 @@
 #include <time.h>
 
 #include "config.h"
+#include <vector>
+#include <map>
+#include <logger.h>
 
 using namespace std;
 
@@ -18,7 +21,7 @@ int process_body( evhtp_request_t * req )
     string body;
     body.resize( data_len );
 
-    if( evbuffer_copyout( req->buffer_in, &body[0], data_len ) == -1 )
+    if( evbuffer_copyout( req->buffer_in, &body[0], data_len ) == -1 ){
         return 0;
     }
 
@@ -28,7 +31,7 @@ int process_body( evhtp_request_t * req )
     return 0;
 }
 
-void build_filter_cb(evhtp_request_t * req, void * a) 
+void build_filter_cb(evhtp_request_t * req, void * a)
 {
     process_body( req );
     evbuffer_add(req->buffer_out, "foobar", 6);
@@ -37,6 +40,17 @@ void build_filter_cb(evhtp_request_t * req, void * a)
 
 void get_cb( evhtp_request_t *req, void *data )
 {
+};
+
+class A{
+public:
+    static const map<string, vector<int>> b;
+};
+
+const map<string, vector<int>> A::b = 
+{
+    { "aa", { 1, 2 } },
+    { "bb", { 1, 3 } }
 };
 
 int main( int argc, char **argv )
@@ -48,13 +62,21 @@ int main( int argc, char **argv )
 
     //context = 
 
-    evbase_t * evbase = event_base_new();
-    evhtp_t  * htp    = evhtp_new(evbase, NULL);
+    //evbase_t * evbase = event_base_new();
+    //evhtp_t  * htp    = evhtp_new(evbase, NULL);
 
-    evhtp_set_cb(htp, "/build", build_filter_cb, NULL);
-    evhtp_set_max_body_size( htp, 20 );
+    //evhtp_set_cb(htp, "/build", build_filter_cb, NULL);
+    //evhtp_set_max_body_size( htp, 20 );
 
-    evhtp_bind_socket(htp, "0.0.0.0", 8081, 1024);
-    event_base_loop(evbase, 0);
+    //evhtp_bind_socket(htp, "0.0.0.0", 8081, 1024);
+    //event_base_loop(evbase, 0);
+
+    logger::get_instance().print( "hello world" );
+    logger::get_instance().init_logger( ".", "http" );
+
+    while( 1 ){
+        logger::get_instance().print( "hello world" );
+    }
+
     return 0;
 }
