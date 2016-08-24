@@ -16,7 +16,6 @@ public:
 
 public:
     bool init_logger( const std::string & conf );
-    void print( const std::string & module, const char *msg );
     void print( const std::string & module, const std::string &msg );
 
 private:

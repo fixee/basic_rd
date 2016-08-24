@@ -23,7 +23,7 @@ bool logger::init_logger( const std::string & conf ){
     return inited == true;
 }
 
-void logger::print( const char *msg )
+void logger::print( const std::string & module, const std::string &msg )
 {
     if( !inited ) return;
 
@@ -55,9 +55,4 @@ void logger::print( const char *msg )
     }
 
     _log_file << tm_prefix << msg << std::endl;
-}
-
-void logger::print( const std::string &msg )
-{
-    return print( msg.c_str() );
 }
