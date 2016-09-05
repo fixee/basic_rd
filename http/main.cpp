@@ -7,6 +7,7 @@
 #include <vector>
 #include <map>
 #include <logger.h>
+#include "file_utils.h"
 
 using namespace std;
 
@@ -44,12 +45,10 @@ void get_cb( evhtp_request_t *req, void *data )
 
 int main( int argc, char **argv )
 {
-    int ret;
-
-    ret = config_t::get_instance().load_config( "conf/server.conf" );
-    cout << ret << endl;
-    string value = config_t::get_instance().get_string( "server.ip" );
-    cout << value << endl;
+    //int ret = config_t::get_instance().load_config( "conf/server.conf" );
+    //cout << ret << endl;
+    //string value = config_t::get_instance().get_string( "server.ip" );
+    //cout << value << endl;
 
     //context = 
     //evbase_t * evbase = event_base_new();
@@ -61,5 +60,12 @@ int main( int argc, char **argv )
     //evhtp_bind_socket(htp, "0.0.0.0", 8081, 1024);
     //event_base_loop(evbase, 0);
 
+    //file_utils::mk_dir( "hello" );
+    //bool bret;
+    //bret = file_utils::is_dir( "hello" );
+    //cout << bret << endl;
+    //bret = file_utils::is_file( "hello" );
+    //cout << bret << endl;
+    
     return 0;
 }
