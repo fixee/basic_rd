@@ -3,8 +3,8 @@
 target_dir="/home/xiongfei/.lib"
 if [ ! -d $target_dir ]; then
     mkdir $target_dir
-    cd $target_dir
 fi
+cd $target_dir
 
 tmp_dist="/home/xiongfei/.lib/dist"
 cpu_cores=4
